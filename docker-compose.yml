@@ -1,0 +1,25 @@
+services:
+  mysql8:
+    image: services:mysql8
+    container_name: services_mysql8
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - ./data8/log:/var/log
+      - ./data8/mysql:/var/lib/mysql
+      - ./docker/mysql8/initdb:/docker-entrypoint-initdb.d
+      - ./docker/mysql8/initdb:/var/lib/mysql-files
+
+
+  redis:
+    image: redis:2.8
+    container_name: services_redis
+    ports:
+      - "6379:6379"
+
+networks:
+  default:
+    name: $DOCKER_NETWORK
+    external: true
