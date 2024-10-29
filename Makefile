@@ -10,7 +10,7 @@ TAG_MYSQL 		= mysql
 ## RESULT_VARS ##
 LOCAL_REGISTRY_HOST = local.neo.registry
 LOCAL_REGISTRY_PORT = 5000
-DOCKER_NETWORK 		= neo_network
+DOCKER_NETWORK 		= siri_network
 PROJECT_NAME 		= services
 IMAGE_MYSQL			= ${PROJECT_NAME}:${TAG_MYSQL}
 IMAGE_MYSQL8		= ${PROJECT_NAME}:${TAG_MYSQL}8
@@ -85,8 +85,8 @@ down_lb:
 	@docker rm -f balancer
 
 up: ## up docker containers, use me with: make up
-	@make verify-network &> /dev/null
-	@make up_lb
+	make verify-network &> /dev/null
+	make up_lb
 	DOCKER_NETWORK=$(DOCKER_NETWORK) \
 	docker compose -p $(PROJECT_NAME) up -d
 
